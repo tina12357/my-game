@@ -28,10 +28,12 @@ body {
 }
 
 #question {
+  white-space: pre-line;
   font-size: 1.5rem;
   margin-bottom: 20px;
   text-shadow: 0 0 8px currentColor;
 }
+
 
 #choices {
   width: 100%;
@@ -65,3 +67,4 @@ button:hover {
   box-shadow: 0 0 20px rgba(0, 255, 156, 0.3);
   border-radius: 12px;
 }
+
