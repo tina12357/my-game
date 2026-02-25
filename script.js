@@ -143,21 +143,28 @@ function showResult() {
   typeText(questionEl, ">> SYSTEM ANALYSIS COMPLETE");
 
 choicesEl.innerHTML = `
-  <div style="margin-top:30px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background: rgba(255,255,255,0.05);">
-    ${resultHTML}
-    <div style="text-align: center; margin-top: 20px;">
-      <button id="rebootBtn" style="
-        padding: 8px 16px; 
-        font-size: 14px; 
-        cursor: pointer; 
-        background: transparent; 
-        border: 1px solid #ffd700; 
-        color: #ffd700; 
-        border-radius: 4px;
-        letter-spacing: 1px;
-        transition: 0.3s;
-      ">⟳ REBOOT SYSTEM</button>
+  <div style="margin-top:30px; padding: 20px; border: 1px solid rgba(255,215,0,0.3); border-radius: 12px; background: rgba(0,0,0,0.2); text-align: center;">
+    
+    <div style="text-align: left; margin-bottom: 25px;">
+      ${resultHTML}
     </div>
+
+    <button id="rebootBtn" style="
+      display: inline-block;
+      width: 180px; 
+      padding: 10px 0; 
+      font-size: 14px; 
+      font-weight: bold;
+      cursor: pointer; 
+      background: transparent; 
+      border: 1.5px solid #ffd700; 
+      color: #ffd700; 
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    ">⟳ REBOOT SYSTEM</button>
+
   </div>
 `;
   document
@@ -167,6 +174,7 @@ choicesEl.innerHTML = `
 
 // 🚀 啟動
 showQuestion();
+
 
 
 
