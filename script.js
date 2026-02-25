@@ -142,13 +142,24 @@ function showResult() {
 
   typeText(questionEl, ">> SYSTEM ANALYSIS COMPLETE");
 
-  choicesEl.innerHTML = `
-    <div style="margin-top:20px;">
-      ${resultHTML}
-      <button id="rebootBtn">⟳ REBOOT SYSTEM</button>
+choicesEl.innerHTML = `
+  <div style="margin-top:30px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background: rgba(255,255,255,0.05);">
+    ${resultHTML}
+    <div style="text-align: center; margin-top: 20px;">
+      <button id="rebootBtn" style="
+        padding: 8px 16px; 
+        font-size: 14px; 
+        cursor: pointer; 
+        background: transparent; 
+        border: 1px solid #ffd700; 
+        color: #ffd700; 
+        border-radius: 4px;
+        letter-spacing: 1px;
+        transition: 0.3s;
+      ">⟳ REBOOT SYSTEM</button>
     </div>
-  `;
-
+  </div>
+`;
   document
     .getElementById("rebootBtn")
     .addEventListener("click", rebootSystem);
@@ -156,6 +167,7 @@ function showResult() {
 
 // 🚀 啟動
 showQuestion();
+
 
 
 
