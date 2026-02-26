@@ -163,6 +163,26 @@ function showResult() {
       <button id="rebootBtn">⟳ REBOOT SYSTEM</button>
     </div>
   `;
+  .result-card {
+  margin-top: 30px;
+  padding: 28px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #ffffff;
+  line-height: 1.8;
+}
+
+.result-card h2 {
+  margin-bottom: 16px;
+  font-size: 22px;
+}
+
+.result-card p {
+  font-size: 16px;
+  white-space: pre-line;
+}
 
   document
     .getElementById("rebootBtn")
@@ -170,6 +190,7 @@ function showResult() {
 }
 // 🚀 啟動
 showQuestion();
+
 
 
 
