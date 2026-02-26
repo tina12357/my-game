@@ -126,100 +126,51 @@ function showResult() {
   console.log("Efficiency:", efficiencyScore);
   console.log("Rights:", rightsScore);
 
-  let resultHTML = "";
+  let title = "";
+  let text = "";
 
-  // 四象限判斷
   if (efficiencyScore >= 3 && rightsScore <= 1) {
 
     matrixColor = "#00ff9c";
-
-    resultHTML = `
-      <h2>【監控型科技國家】</h2>
-      <p>你高度重視效率，但較少考慮監督與權利保障。\n\n
-      在缺乏法制與透明機制下，數位皮夾快速擴散，
-      便利與監控只剩一線之隔。</p>
-    `;
+    title = "【監控型科技國家】";
+    text = "你高度重視效率，但較少考慮監督與權利保障。\n\n在缺乏法制與透明機制下，數位皮夾快速擴散，便利與監控只剩一線之隔。";
 
   } else if (efficiencyScore <= 1 && rightsScore >= 3) {
 
     matrixColor = "#4da6ff";
-
-    resultHTML = `
-      <h2>【人權優先社會】</h2>
-      <p>你將權利保障置於首位。\n\n
-      雖然發展較慢，但透過制度與監督，
-      科技成為公民信任的工具。</p>
-    `;
+    title = "【人權優先社會】";
+    text = "你將權利保障置於首位。\n\n雖然發展較慢，但透過制度與監督，科技成為公民信任的工具。";
 
   } else if (efficiencyScore >= 2 && rightsScore >= 2) {
 
     matrixColor = "#ffd700";
-
-    resultHTML = `
-      <h2>【平衡韌性模型】</h2>
-      <p>你試圖在效率與權利之間取得平衡。\n\n
-      科技與制度同步前進，
-      建立可被質疑、也可被信任的數位基礎建設。</p>
-    `;
+    title = "【平衡韌性模型】";
+    text = "你試圖在效率與權利之間取得平衡。\n\n科技與制度同步前進，建立可被質疑、也可被信任的數位基礎建設。";
 
   } else {
 
     matrixColor = "#ff4d4d";
-
-    resultHTML = `
-      <h2>【停滯轉型】</h2>
-      <p>政策方向反覆，既未建立法制，
-      也未達成效率優化。\n\n
-      數位轉型陷入政治與行政拉扯。</p>
-    `;
+    title = "【停滯轉型】";
+    text = "政策方向反覆，既未建立法制，也未達成效率優化。\n\n數位轉型陷入政治與行政拉扯。";
   }
 
   typeText(questionEl, ">> SYSTEM ANALYSIS COMPLETE");
 
   choicesEl.innerHTML = `
-    <div style="margin-top:30px;">
-      ${resultHTML}
+    <div class="result-card">
+      <h2>${title}</h2>
+      <p>${text}</p>
       <button id="rebootBtn">⟳ REBOOT SYSTEM</button>
     </div>
   `;
 
-  document.getElementById("rebootBtn")
-    .addEventListener("click", rebootSystem);
-}
-  typeText(questionEl, ">> SYSTEM ANALYSIS COMPLETE");
-
-choicesEl.innerHTML = `
-  <div style="margin-top:30px; padding: 20px; border: 1px solid rgba(255,215,0,0.3); border-radius: 12px; background: rgba(0,0,0,0.2); text-align: center;">
-    
-    <div style="text-align: left; margin-bottom: 25px;">
-      ${resultHTML}
-    </div>
-
-    <button id="rebootBtn" style="
-      display: inline-block;
-      width: 180px; 
-      padding: 10px 0; 
-      font-size: 14px; 
-      font-weight: bold;
-      cursor: pointer; 
-      background: transparent; 
-      border: 1.5px solid #ffd700; 
-      color: #ffd700; 
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      transition: all 0.3s ease;
-    ">⟳ REBOOT SYSTEM</button>
-
-  </div>
-`;
   document
     .getElementById("rebootBtn")
     .addEventListener("click", rebootSystem);
 }
-
 // 🚀 啟動
 showQuestion();
+
 
 
 
