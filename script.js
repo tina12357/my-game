@@ -144,7 +144,7 @@ function renderQuestion() {
 
       currentQuestion++;
 
-      currentQuestion < questions.length ? renderQuestion() : renderResult();
+      currentQuestion < questions.length ? renderQuestion() : showResult();
     };
 
     choicesEl.appendChild(btn);
