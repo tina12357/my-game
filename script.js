@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  (() => {
-
   // ===== 你原本全部 code 貼在這裡 =====
 
 /***********************
