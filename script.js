@@ -1,4 +1,8 @@
+(() => {
+
 document.addEventListener("DOMContentLoaded", () => {
+
+  // ===== 你原本全部 code 그대로貼在這裡 =====
 
 /***********************
  * Matrix（優化）
@@ -171,3 +175,6 @@ function renderResult() {
 renderQuestion();
 
 });
+});
+
+})();
