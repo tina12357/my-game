@@ -10,6 +10,8 @@ const ctx = canvas ? canvas.getContext("2d") : null;
 
 document.addEventListener("DOMContentLoaded", () => {
 
+  (() => {
+
   // ===== 你原本全部 code 그대로貼在這裡 =====
 
 /***********************
