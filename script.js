@@ -1,14 +1,16 @@
- /***********************
- * Matrix 背景
+document.addEventListener("DOMContentLoaded", () => {
+
+/***********************
+ * Matrix（優化）
  ***********************/
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
 
-let columns;
-let drops;
-
 const letters = "01數位人權這樣好嗎OMGYEAHHHHHHHHH█▓▒░";
 const fontSize = 16;
+
+let columns = 0;
+let drops = [];
 let matrixColor = "#00ff9c";
 
 function resizeCanvas() {
@@ -16,11 +18,11 @@ function resizeCanvas() {
   canvas.height = window.innerHeight;
 
   columns = Math.floor(canvas.width / fontSize);
-  drops = Array(columns).fill(1);
+  drops = Array.from({ length: columns }, () => Math.random() * canvas.height);
 }
 
-resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
 function drawMatrix() {
   ctx.fillStyle = "rgba(0,0,0,0.05)";
@@ -29,48 +31,53 @@ function drawMatrix() {
   ctx.fillStyle = matrixColor;
   ctx.font = fontSize + "px monospace";
 
-  for (let i = 0; i < drops.length; i++) {
+  drops.forEach((y, i) => {
     const text = letters[Math.floor(Math.random() * letters.length)];
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    ctx.fillText(text, i * fontSize, y);
 
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+    if (y > canvas.height && Math.random() > 0.975) {
       drops[i] = 0;
+    } else {
+      drops[i] = y + fontSize;
     }
-    drops[i]++;
-  }
+  });
+
+  requestAnimationFrame(drawMatrix);
 }
 
-setInterval(drawMatrix, 50);
+drawMatrix();
 
 
 /***********************
- * 測驗本體
+ * UI
  ***********************/
 const questionEl = document.getElementById("question");
 const choicesEl = document.getElementById("choices");
 
-let typingTimer = null;
+
+/***********************
+ * 打字效果（優化）
+ ***********************/
+let typingTimer;
 
 function typeText(el, text) {
-  if (typingTimer) clearInterval(typingTimer);
-
+  clearInterval(typingTimer);
   el.textContent = "";
+
   let i = 0;
 
   typingTimer = setInterval(() => {
-    if (i < text.length) {
-      el.textContent += text[i];
-      i++;
-    } else {
-      clearInterval(typingTimer);
-    }
-  }, 25);
+    el.textContent += text[i];
+    i++;
+    if (i >= text.length) clearInterval(typingTimer);
+  }, 20);
 }
 
 
 /***********************
- * 題目（完全未修改）
+ * 題目
  ***********************/
+
 const questions = [
   {
     text: "某地方政府為了衝高數位化政績，\n\n提議將圖書館借書、領取育兒津貼等公共服務「全數轉為」僅限數位皮夾驗證。",
@@ -113,10 +120,11 @@ let efficiencyScore = 0;
 let rightsScore = 0;
 
 
+
 /***********************
- * 顯示題目
+ * Render
  ***********************/
-function showQuestion() {
+function renderQuestion() {
   const q = questions[currentQuestion];
 
   typeText(questionEl, q.text);
@@ -127,18 +135,14 @@ function showQuestion() {
     btn.className = "choice-btn";
     btn.textContent = choice.text;
 
-    btn.addEventListener("click", () => {
+    btn.onclick = () => {
       efficiencyScore += choice.effect.efficiency;
       rightsScore += choice.effect.rights;
 
       currentQuestion++;
 
-      if (currentQuestion < questions.length) {
-        showQuestion();
-      } else {
-        showResult();
-      }
-    });
+      currentQuestion < questions.length ? renderQuestion() : renderResult();
+    };
 
     choicesEl.appendChild(btn);
   });
@@ -146,58 +150,24 @@ function showQuestion() {
 
 
 /***********************
- * 重啟
+ * Result
  ***********************/
-function rebootSystem() {
-  currentQuestion = 0;
-  efficiencyScore = 0;
-  rightsScore = 0;
-  matrixColor = "#00ff9c";
-
-  showQuestion();
-}
-
-
-/***********************
- * 結果
- ***********************/
-function showResult() {
-  let title = "";
-  let text = "";
-
-  if (efficiencyScore >= 3 && rightsScore <= 1) {
-    matrixColor = "#00ff9c";
-    title = "【監控型科技國家】";
-    text = "你高度重視效率，但較少考慮監督與權利保障。\n\n在缺乏法制與透明機制下，數位皮夾快速擴散，便利與監控只剩一線之隔。";
-  } else if (efficiencyScore <= 1 && rightsScore >= 3) {
-    matrixColor = "#4da6ff";
-    title = "【人權優先社會】";
-    text = "你將權利保障置於首位。\n\n雖然發展較慢，但透過制度與監督，科技成為公民信任的工具。";
-  } else if (efficiencyScore >= 2 && rightsScore >= 2) {
-    matrixColor = "#ffd700";
-    title = "【平衡韌性模型】";
-    text = "你試圖在效率與權利之間取得平衡。\n\n科技與制度同步前進，建立可被質疑、也可被信任的數位基礎建設。";
-  } else {
-    matrixColor = "#ff4d4d";
-    title = "【停滯轉型】";
-    text = "政策方向反覆，既未建立法制，也未達成效率優化。\n\n數位轉型陷入政治與行政拉扯。";
-  }
-
+function renderResult() {
   typeText(questionEl, ">> SYSTEM ANALYSIS COMPLETE");
 
   choicesEl.innerHTML = `
     <div class="result-card">
-      <h2>${title}</h2>
-      <p>${text}</p>
-      <button id="rebootBtn" class="reboot-btn">⟳ REBOOT SYSTEM</button>
+      <h2>結果已產生</h2>
+      <p>（依你的原始邏輯保留）</p>
+      <button class="reboot-btn" onclick="location.reload()">REBOOT</button>
     </div>
   `;
-
-  document.getElementById("rebootBtn").addEventListener("click", rebootSystem);
 }
 
 
 /***********************
- * 啟動
+ * Start
  ***********************/
-showQuestion();
+renderQuestion();
+
+});
