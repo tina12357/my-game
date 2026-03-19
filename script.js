@@ -41,17 +41,14 @@ setInterval(drawMatrix, 50);
 
 
 /***********************
- * DOM
+ * 測驗本體
  ***********************/
 const questionEl = document.getElementById("question");
 const choicesEl = document.getElementById("choices");
 
 let typingTimer = null;
 
-/***********************
- * 打字機（修正版：可 callback）
- ***********************/
-function typeText(el, text, callback) {
+function typeText(el, text) {
   if (typingTimer) clearInterval(typingTimer);
 
   el.textContent = "";
@@ -63,21 +60,16 @@ function typeText(el, text, callback) {
       i++;
     } else {
       clearInterval(typingTimer);
-      if (callback) callback(); // ⭐ 關鍵：打完後執行下一步
     }
   }, 25);
 }
 
-
-/***********************
- * 問題資料
- ***********************/
 const questions = [
   {
-    text: "某地方政府為了衝高數位化政績，\n\n提議將公共服務全面改為數位皮夾驗證。",
+    text: "某地方政府為了衝高數位化政績，\n\n提議將圖書館借書、領取育兒津貼等公共服務「全數轉為」僅限數位皮夾驗證。",
     choices: [
-      { text: "支持效率優先", effect: { efficiency: 1, rights: 0 }},
-      { text: "要求保留替代方案", effect: { efficiency: 0, rights: 1 }}
+      { text: "「效率至上」\n\n支持地方政府，認為數位化能節省行政人力。", effect: { efficiency: 1, rights: 0 }},
+      { text: "「平等近用」\n\n反對強迫綁定，要求保留傳統驗證方式。", effect: { efficiency: 0, rights: 1 }}
     ]
   },
   {
@@ -88,46 +80,36 @@ const questions = [
     ]
   },
   {
-    text: "政府尚未制定專法，但系統已準備上線。",
+    text: "開發團隊表示技術已成熟，但尚無專法。",
     choices: [
-      { text: "先上線再補法", effect: { efficiency: 1, rights: 0 }},
-      { text: "先立法再推動", effect: { efficiency: 0, rights: 1 }}
+      { text: "「技術萬能論」", effect: { efficiency: 1, rights: 0 }},
+      { text: "「法制先行」", effect: { efficiency: 0, rights: 1 }}
     ]
   },
   {
-    text: "民間要求公開技術細節。",
+    text: "民間團體要求公開技術架構。",
     choices: [
       { text: "延後公開", effect: { efficiency: 1, rights: 0 }},
-      { text: "全面公開", effect: { efficiency: 0, rights: 1 }}
+      { text: "主動公開", effect: { efficiency: 0, rights: 1 }}
     ]
   }
 ];
 
-
-/***********************
- * 狀態
- ***********************/
 let currentQuestion = 0;
 let efficiencyScore = 0;
 let rightsScore = 0;
 
-
-/***********************
- * 顯示問題
- ***********************/
 function showQuestion() {
   const q = questions[currentQuestion];
-
   typeText(questionEl, q.text);
-
   choicesEl.innerHTML = "";
 
   q.choices.forEach(choice => {
     const btn = document.createElement("button");
     btn.className = "choice-btn";
-    btn.innerText = choice.text;
+    btn.textContent = choice.text;
 
-    btn.onclick = () => {
+    btn.addEventListener("click", () => {
       efficiencyScore += choice.effect.efficiency;
       rightsScore += choice.effect.rights;
       currentQuestion++;
@@ -137,16 +119,20 @@ function showQuestion() {
       } else {
         showResult();
       }
-    };
+    });
 
     choicesEl.appendChild(btn);
   });
 }
 
+function rebootSystem() {
+  currentQuestion = 0;
+  efficiencyScore = 0;
+  rightsScore = 0;
+  matrixColor = "#00ff9c";
+  showQuestion();
+}
 
-/***********************
- * 結果
- ***********************/
 function showResult() {
 
   let title = "";
@@ -155,17 +141,22 @@ function showResult() {
   if (efficiencyScore >= 3 && rightsScore <= 1) {
     matrixColor = "#00ff9c";
     title = "【監控型科技國家】";
-    text = "便利快速，但監控無所不在。";
+    text = "你高度重視效率，但較少考慮監督與權利保障。\n\n在缺乏法制與透明機制下，數位皮夾快速擴散，便利與監控只剩一線之隔。";
 
-  } else if (rightsScore >= 3) {
+  } else if (efficiencyScore <= 1 && rightsScore >= 3) {
     matrixColor = "#4da6ff";
     title = "【人權優先社會】";
-    text = "發展較慢，但制度透明且受信任。";
+    text = "你將權利保障置於首位。\n\n雖然發展較慢，但透過制度與監督，科技成為公民信任的工具。";
+
+  } else if (efficiencyScore >= 2 && rightsScore >= 2) {
+    matrixColor = "#ffd700";
+    title = "【平衡韌性模型】";
+    text = "你試圖在效率與權利之間取得平衡。\n\n科技與制度同步前進，建立可被質疑、也可被信任的數位基礎建設。";
 
   } else {
-    matrixColor = "#ffd700";
-    title = "【平衡模型】";
-    text = "效率與權利取得一定平衡。";
+    matrixColor = "#ff4d4d";
+    title = "【停滯轉型】";
+    text = "政策方向反覆，既未建立法制，也未達成效率優化。\n\n數位轉型陷入政治與行政拉扯。";
   }
 
   typeText(questionEl, ">> SYSTEM ANALYSIS COMPLETE");
@@ -174,60 +165,13 @@ function showResult() {
     <div class="result-card">
       <h2>${title}</h2>
       <p>${text}</p>
-      <button id="rebootBtn" class="reboot-btn">⟳ RESTART</button>
+      <button id="rebootBtn" class="reboot-btn">⟳ REBOOT SYSTEM</button>
     </div>
   `;
 
-  document.getElementById("rebootBtn").onclick = rebootSystem;
+  document.getElementById("rebootBtn")
+    .addEventListener("click", rebootSystem);
 }
 
-
-/***********************
- * 開始畫面
- ***********************/
-function showStartScreen() {
-  questionEl.innerHTML = `
-    <div style="text-align:center;">
-      <h1>數位人權測驗</h1>
-      <p style="opacity:0.7;">你準備好做出選擇了嗎？</p>
-    </div>
-  `;
-
-  choicesEl.innerHTML = `
-    <div style="text-align:center;">
-      <button id="startBtn" class="reboot-btn">▶ START</button>
-    </div>
-  `;
-
-  document.getElementById("startBtn").onclick = showQuestion;
-}
-
-
-/***********************
- * 開場動畫
- ***********************/
-function bootSequence() {
-  typeText(
-    questionEl,
-    "SYSTEM BOOTING...\nLoading scenario...\nInjecting user...",
-    showStartScreen // ⭐ 打完直接跳開始畫面
-  );
-}
-
-
-/***********************
- * 重啟
- ***********************/
-function rebootSystem() {
-  currentQuestion = 0;
-  efficiencyScore = 0;
-  rightsScore = 0;
-  matrixColor = "#00ff9c";
-  showStartScreen();
-}
-
-
-/***********************
- * 啟動
- ***********************/
-bootSequence();
+// 啟動
+showQuestion();
