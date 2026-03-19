@@ -187,7 +187,9 @@ function showResult() {
 
   document.getElementById("rebootBtn").addEventListener("click", rebootSystem);
 }
-
+function rebootSystem() {
+  location.reload();
+}
 
 /***********************
  * Start
