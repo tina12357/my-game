@@ -4,6 +4,11 @@ body {
   background: black;
   color: white;
   overflow-x: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 #matrix {
@@ -11,6 +16,15 @@ body {
   top: 0;
   left: 0;
   z-index: -1;
+}
+#game {
+  width: 90%;
+  max-width: 720px;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(0, 255, 156, 0.4);
+  box-shadow: 0 0 20px rgba(0, 255, 156, 0.3);
+  border-radius: 12px;
 }
 
 #question {
