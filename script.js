@@ -166,7 +166,7 @@ function renderQuestion() {
 /***********************
  * 結果
  ***********************/
-function renderResult() {
+function showResult() {
   let title = "";
   let text = "";
 
