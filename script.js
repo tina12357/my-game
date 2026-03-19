@@ -156,7 +156,7 @@ function renderQuestion() {
 
       currentQuestion++;
 
-      currentQuestion < questions.length ? renderQuestion() : showResult();
+      currentQuestion < questions.length ? renderQuestion() : renderResult();
     };
 
     choicesEl.appendChild(btn);
@@ -166,7 +166,7 @@ function renderQuestion() {
 /***********************
  * 結果
  ***********************/
-function showResult() {
+function renderResult() {
   let title = "";
   let text = "";
 
