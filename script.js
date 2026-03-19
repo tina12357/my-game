@@ -1,18 +1,8 @@
-const canvas = document.getElementById("matrix");
-
-if (!canvas) {
-  console.error("Canvas not found");
-}
-
-const ctx = canvas ? canvas.getContext("2d") : null;
-
-(() => {
-
 document.addEventListener("DOMContentLoaded", () => {
 
   (() => {
 
-  // ===== 你原本全部 code 그대로貼在這裡 =====
+  // ===== 你原本全部 code 貼在這裡 =====
 
 /***********************
  * Matrix（優化）
@@ -207,4 +197,3 @@ function showResult() {
 renderQuestion();
 
 });
-})();
