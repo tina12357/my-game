@@ -163,33 +163,43 @@ function renderQuestion() {
   });
 }
 
-
 /***********************
- * Result
+ * 結果
  ***********************/
-function renderResult() {
-  let resultText = "";
+function showResult() {
+  let title = "";
+  let text = "";
 
-  if (efficiencyScore > rightsScore) {
-    resultText = ">> EFFICIENCY-ORIENTED SYSTEM DETECTED";
-  } else if (rightsScore > efficiencyScore) {
-    resultText = ">> RIGHTS-ORIENTED SYSTEM DETECTED";
+  if (efficiencyScore >= 3 && rightsScore <= 1) {
+    matrixColor = "#00ff9c";
+    title = "【監控型科技國家】";
+    text = "你高度重視效率，但較少考慮監督與權利保障。\n\n在缺乏法制與透明機制下，數位皮夾快速擴散，便利與監控只剩一線之隔。";
+  } else if (efficiencyScore <= 1 && rightsScore >= 3) {
+    matrixColor = "#4da6ff";
+    title = "【人權優先社會】";
+    text = "你將權利保障置於首位。\n\n雖然發展較慢，但透過制度與監督，科技成為公民信任的工具。";
+  } else if (efficiencyScore >= 2 && rightsScore >= 2) {
+    matrixColor = "#ffd700";
+    title = "【平衡韌性模型】";
+    text = "你試圖在效率與權利之間取得平衡。\n\n科技與制度同步前進，建立可被質疑、也可被信任的數位基礎建設。";
   } else {
-    resultText = ">> BALANCED SYSTEM DETECTED";
+    matrixColor = "#ff4d4d";
+    title = "【停滯轉型】";
+    text = "政策方向反覆，既未建立法制，也未達成效率優化。\n\n數位轉型陷入政治與行政拉扯。";
   }
 
-  typeText(questionEl, resultText);
+  typeText(questionEl, ">> SYSTEM ANALYSIS COMPLETE");
 
   choicesEl.innerHTML = `
     <div class="result-card">
-      <h2>分析結果</h2>
-      <p>Efficiency: ${efficiencyScore}</p>
-      <p>Rights: ${rightsScore}</p>
-      <button class="reboot-btn" onclick="location.reload()">REBOOT</button>
+      <h2>${title}</h2>
+      <p>${text}</p>
+      <button id="rebootBtn" class="reboot-btn">⟳ REBOOT SYSTEM</button>
     </div>
   `;
-}
 
+  document.getElementById("rebootBtn").addEventListener("click", rebootSystem);
+}
 /***********************
  * Start
  ***********************/
