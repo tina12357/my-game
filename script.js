@@ -7,7 +7,7 @@ const ctx = canvas.getContext("2d");
 let columns;
 let drops;
 
-const letters = "01數位人權這樣好嗎OMGYEAHHHHHHHHHCOOLLLL█▓▒░";
+const letters = "01數位人權這樣好嗎OMGYEAHHHHHHHHH█▓▒░";
 const fontSize = 16;
 let matrixColor = "#00ff9c";
 
@@ -48,6 +48,7 @@ const choicesEl = document.getElementById("choices");
 
 let typingTimer = null;
 
+// ✅ 修正：避免亂碼（先清掉 timer）
 function typeText(el, text) {
   if (typingTimer) clearInterval(typingTimer);
 
@@ -80,24 +81,17 @@ const questions = [
     ]
   },
   {
-    text: "\n\n2026 年初，數位皮夾已進入超商取貨驗證階段，\n\n但台灣人權促進會（台權會）持續追討 2024 年至今的設計案與交付成果，輿論開始質疑政府隱瞞技術細節。",
+    text: "開發團隊表示技術已成熟，但尚無專法。",
     choices: [
-      { text: "「技術優先」\n\n以開發尚未完全成熟、涉及資安敏感資訊為由，繼續延後公開交付成果，專注於優化 APP 功能。", effect: { efficiency: 1, rights: 0 }},
-      { text: "「民主監督」響應 FOC 國際原則，主動公開階段性成果與技術架構，並舉辦公聽會接受公民團體監督。", effect: { efficiency: 0, rights: 1 }}
-    ]
-  },
-   {
-    text: "電信巨頭與跨國手機系統商（Apple/Google）積極尋求合作，想將數位皮夾嵌入系統底層。",
-    choices: [
-      { text: "「市場導向」\n\n擁抱單一大型供應商，換取最便利的操作體驗，快速普及化。", effect: { efficiency: 1, rights: 0 }},
-      { text: "「風險分散」\n\n執行「個資衝擊與人權風險評估」，要求多樣化供應鏈，防止數位主權與數據被單一財團壟斷。", effect: { efficiency: 0, rights: 1 }}
+      { text: "「技術萬能論」", effect: { efficiency: 1, rights: 0 }},
+      { text: "「法制先行」", effect: { efficiency: 0, rights: 1 }}
     ]
   },
   {
-    text: "開發團隊表示現有技術已能達成「初步去識別化」，建議直接上線。\n\n但目前國內尚無針對數位皮夾的專屬法律（如歐盟 eIDAS）。",
+    text: "民間團體要求公開技術架構。",
     choices: [
-      { text: "「技術萬能論」\n\n 相信技術開發可以長成符合國際原則的樣子，法律等技術成熟後再補補丁，避免法律限制創新。", effect: { efficiency: 1, rights: 0 }},
-      { text: "「法制先行」\n\n 在全面推廣前，優先推動專法立法，明確界定個資最小化、嚴格限制發證單位取得使用者數位足跡。", effect: { efficiency: 0, rights: 1 }}
+      { text: "延後公開", effect: { efficiency: 1, rights: 0 }},
+      { text: "主動公開", effect: { efficiency: 0, rights: 1 }}
     ]
   }
 ];
@@ -106,6 +100,10 @@ let currentQuestion = 0;
 let efficiencyScore = 0;
 let rightsScore = 0;
 
+
+/***********************
+ * 題目顯示
+ ***********************/
 function showQuestion() {
   const q = questions[currentQuestion];
   typeText(questionEl, q.text);
@@ -132,14 +130,10 @@ function showQuestion() {
   });
 }
 
-function rebootSystem() {
-  currentQuestion = 0;
-  efficiencyScore = 0;
-  rightsScore = 0;
-  matrixColor = "#00ff9c";
-  showQuestion();
-}
 
+/***********************
+ * 結果顯示
+ ***********************/
 function showResult() {
 
   let title = "";
@@ -166,13 +160,35 @@ function showResult() {
     text = "政策方向反覆，既未建立法制，也未達成效率優化。\n\n數位轉型陷入政治與行政拉扯。";
   }
 
+  // 顯示 COMPLETE
   typeText(questionEl, ">> SYSTEM ANALYSIS COMPLETE");
 
+  // ✅ 加強底襯（解決看不清楚）
   choicesEl.innerHTML = `
-    <div class="result-card">
-      <h2>${title}</h2>
-      <p>${text}</p>
-      <button id="rebootBtn" class="reboot-btn">⟳ REBOOT SYSTEM</button>
+    <div style="
+      margin-top:30px;
+      padding:25px;
+      border-radius:16px;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      line-height: 1.8;
+    ">
+      <h2 style="margin-bottom:15px;">${title}</h2>
+      <p style="white-space: pre-line;">${text}</p>
+
+      <button id="rebootBtn" style="
+        margin-top:20px;
+        padding:10px 20px;
+        border:1px solid #ffd700;
+        background: transparent;
+        color:#ffd700;
+        border-radius:8px;
+        cursor:pointer;
+      ">
+        ⟳ REBOOT SYSTEM
+      </button>
     </div>
   `;
 
@@ -180,31 +196,43 @@ function showResult() {
     .addEventListener("click", rebootSystem);
 }
 
+
 /***********************
  * 開始畫面
  ***********************/
 function showStartScreen() {
   questionEl.innerHTML = `
     <div style="text-align:center;">
-      <h1>數位人權測驗</h1>
-      <p style="opacity:0.8;">你將面對一連串關於科技與權力的選擇</p>
+      <h1>>> SYSTEM INIT</h1>
+      <p style="opacity:0.8;">Press start to begin simulation</p>
     </div>
   `;
 
   choicesEl.innerHTML = `
     <div style="text-align:center;">
-      <button id="startBtn" class="reboot-btn">▶ 開始測驗</button>
+      <button id="startBtn" class="reboot-btn">▶ START</button>
     </div>
   `;
 
+  // ✅ 修正：正確事件
   document.getElementById("startBtn")
-    .addEventListener("click", showStartScreen();
+    .addEventListener("click", showQuestion);
 }
 
+
+/***********************
+ * 重啟
+ ***********************/
 function rebootSystem() {
   currentQuestion = 0;
   efficiencyScore = 0;
   rightsScore = 0;
   matrixColor = "#00ff9c";
-  showStartScreen(); // ⭐ 改這裡
+  showStartScreen();
 }
+
+
+/***********************
+ * 啟動
+ ***********************/
+showStartScreen();
