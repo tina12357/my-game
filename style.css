@@ -1,85 +1,122 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: monospace;
   background: black;
   color: white;
-  overflow-x: hidden;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
   min-height: 100vh;
 }
 
+/* 背景 */
 #matrix {
   position: fixed;
   top: 0;
   left: 0;
   z-index: -1;
 }
+
+/* 主容器（置中關鍵） */
 #game {
   width: 90%;
-  max-width: 720px;
-  padding: 40px;
+  max-width: 700px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 24px;
+
   background: rgba(0, 0, 0, 0.75);
-  border: 1px solid rgba(0, 255, 156, 0.4);
-  box-shadow: 0 0 20px rgba(0, 255, 156, 0.3);
   border-radius: 12px;
+  border: 1px solid rgba(0, 255, 156, 0.4);
 }
 
+/* 題目 */
 #question {
   white-space: pre-line;
+  font-size: 18px;
+  line-height: 1.8;
+
+  margin-bottom: 20px;
+
+  width: 100%;
+  text-align: left; /* 題目左對齊比較好讀 */
 }
 
-/* 關鍵：讓選項不被截斷 */
+/* 選項區塊 */
+#choices {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* 選項按鈕 */
 .choice-btn {
   width: 100%;
   padding: 14px;
   margin: 10px 0;
 
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left;
+
   white-space: pre-line;
   word-break: break-word;
-  height: auto;
 
-  text-align: left;
-}
+  background: rgba(0,0,0,0.6);
+  color: white;
 
-
-.choice-btn {
-  display: block;
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 12px;
-  font-size: 16px;
-  line-height: 1.7;
-  white-space: pre-line;
-  text-align: left;
-  border-radius: 12px;
-  border: none;
+  border: 1px solid #00ff9c;
+  border-radius: 6px;
   cursor: pointer;
 }
 
+/* hover */
+.choice-btn:hover {
+  background: rgba(0,255,156,0.2);
+}
+
+/* 結果卡 */
 .result-card {
-  margin-top: 30px;
-  padding: 28px;
-  border-radius: 16px;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(6px);
+  margin-top: 20px;
+  padding: 24px;
+  border-radius: 12px;
+
+  background: rgba(0,0,0,0.85);
   border: 1px solid rgba(255,255,255,0.2);
-  color: white;
-  line-height: 1.8;
+
+  text-align: left;
 }
 
-.result-card p {
-  white-space: pre-line;
-}
-
+/* 按鈕 */
 .reboot-btn {
   margin-top: 20px;
   padding: 10px 20px;
-  cursor: pointer;
+
   border-radius: 8px;
   border: 1px solid #ffd700;
+
   background: transparent;
   color: #ffd700;
+
+  cursor: pointer;
+}
+
+/* 手機 */
+@media (max-width: 600px) {
+  #question {
+    font-size: 16px;
+  }
 }
