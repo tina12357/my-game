@@ -162,7 +162,6 @@ function renderQuestion() {
     choicesEl.appendChild(btn);
   });
 }
-
 /***********************
  * 結果
  ***********************/
@@ -200,6 +199,8 @@ function showResult() {
 
   document.getElementById("rebootBtn").addEventListener("click", rebootSystem);
 }
+
+
 /***********************
  * Start
  ***********************/
