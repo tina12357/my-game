@@ -29,10 +29,21 @@ body {
 
 #question {
   white-space: pre-line;
-  font-size: 18px;
-  line-height: 1.8;
-  margin-bottom: 20px;
 }
+
+/* 關鍵：讓選項不被截斷 */
+.choice-btn {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+
+  white-space: pre-line;
+  word-break: break-word;
+  height: auto;
+
+  text-align: left;
+}
+
 
 .choice-btn {
   display: block;
