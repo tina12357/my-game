@@ -52,7 +52,8 @@ function drawMatrix() {
     if (y > canvas.height && Math.random() > 0.975) {
       drops[i] = 0;
     } else {
-      drops[i] = y + Math.random() * 2;
+      const speed = 0.5;
+      drops[i] = y + fontSize * speed;
     }
   });
 
