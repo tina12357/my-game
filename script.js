@@ -183,6 +183,4 @@ function renderResult() {
 renderQuestion();
 
 });
-});
-
 })();
