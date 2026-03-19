@@ -231,9 +231,11 @@ function restartGame() {
  * 啟動（修正不卡）
  ***********************/
 function bootSequence() {
-  typeText(questionEl, "SYSTEM BOOTING...\nLoading scenario...\nInjecting user...");
+  questionEl.innerHTML = "SYSTEM BOOTING...\nLoading scenario...\nInjecting user...";
 
-  setTimeout(showStartScreen, 2000);
+  choicesEl.innerHTML = "";
+
+  setTimeout(() => {
+    showStartScreen(); // ⭐ 完全切換畫面
+  }, 2000);
 }
-
-bootSequence();
