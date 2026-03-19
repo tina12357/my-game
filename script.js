@@ -1,3 +1,11 @@
+const canvas = document.getElementById("matrix");
+
+if (!canvas) {
+  console.error("Canvas not found");
+}
+
+const ctx = canvas ? canvas.getContext("2d") : null;
+
 (() => {
 
 document.addEventListener("DOMContentLoaded", () => {
