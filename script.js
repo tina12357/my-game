@@ -52,7 +52,7 @@ function drawMatrix() {
     if (y > canvas.height && Math.random() > 0.975) {
       drops[i] = 0;
     } else {
-      drops[i] = y + fontSize;
+      drops[i] = y + Math.random() * 2;
     }
   });
 
@@ -167,17 +167,27 @@ function renderQuestion() {
  * Result
  ***********************/
 function renderResult() {
-  typeText(questionEl, ">> SYSTEM ANALYSIS COMPLETE");
+  let resultText = "";
+
+  if (efficiencyScore > rightsScore) {
+    resultText = ">> EFFICIENCY-ORIENTED SYSTEM DETECTED";
+  } else if (rightsScore > efficiencyScore) {
+    resultText = ">> RIGHTS-ORIENTED SYSTEM DETECTED";
+  } else {
+    resultText = ">> BALANCED SYSTEM DETECTED";
+  }
+
+  typeText(questionEl, resultText);
 
   choicesEl.innerHTML = `
     <div class="result-card">
-      <h2>結果已產生</h2>
-      <p>（依你的原始邏輯保留）</p>
+      <h2>分析結果</h2>
+      <p>Efficiency: ${efficiencyScore}</p>
+      <p>Rights: ${rightsScore}</p>
       <button class="reboot-btn" onclick="location.reload()">REBOOT</button>
     </div>
   `;
 }
-
 
 /***********************
  * Start
