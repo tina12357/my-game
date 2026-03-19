@@ -180,6 +180,31 @@ function showResult() {
     .addEventListener("click", rebootSystem);
 }
 
-// 啟動
-showQuestion();
+/***********************
+ * 開始畫面
+ ***********************/
+function showStartScreen() {
+  questionEl.innerHTML = `
+    <div style="text-align:center;">
+      <h1>數位人權測驗</h1>
+      <p style="opacity:0.8;">你將面對一連串關於科技與權力的選擇</p>
+    </div>
+  `;
 
+  choicesEl.innerHTML = `
+    <div style="text-align:center;">
+      <button id="startBtn" class="reboot-btn">▶ 開始測驗</button>
+    </div>
+  `;
+
+  document.getElementById("startBtn")
+    .addEventListener("click", showStartScreen();
+}
+
+function rebootSystem() {
+  currentQuestion = 0;
+  efficiencyScore = 0;
+  rightsScore = 0;
+  matrixColor = "#00ff9c";
+  showStartScreen(); // ⭐ 改這裡
+}
