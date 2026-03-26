@@ -1,3 +1,4 @@
+console.log("JS START");
 document.addEventListener("DOMContentLoaded", () => {
 
   // ===== 你原本全部 code 貼在這裡 =====
@@ -92,7 +93,7 @@ const questions = [
     text: "某地方政府為了衝高數位化政績，\n\n提議將圖書館借書、領取育兒津貼等公共服務「全數轉為」僅限數位皮夾驗證。",
     choices: [
       {
-        text: "「效率至上」\n\n支持地方政府，認為數位化能節省行政人力",
+        text: "「效率至上」\n\n支持地方政府，認為數位化能節省行政人力。",
         effect: { efficiency: 1, rights: 0 }
       },
       {
@@ -114,7 +115,7 @@ const questions = [
       { text: "「技術優先」\n\n以開發尚未完全成熟、涉及資安敏感資訊為由，繼續延後公開交付成果，專注於優化 APP 功能。", effect: { efficiency: 1, rights: 0 }},
       { text: "「民主監督」響應 FOC 國際原則，主動公開階段性成果與技術架構，並舉辦公聽會接受公民團體監督。", effect: { efficiency: 0, rights: 1 }}
     ]
-  },
+ },
   {
     text: "電信巨頭與跨國手機系統商（Apple/Google）積極尋求合作，想將數位皮夾嵌入系統底層。",
     choices: [
