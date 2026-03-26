@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
  * Matrix（優化）
  ***********************/
 const canvas = document.getElementById("matrix");
+
+if (!canvas) {
+  console.error("Canvas not found");
+  return;
+}
+
 const ctx = canvas.getContext("2d");
 
 const letters = "01數位人權這樣好嗎OMGYEAHHHHHHHHH█▓▒░";
