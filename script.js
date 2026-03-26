@@ -86,7 +86,7 @@ const questions = [
     text: "某地方政府為了衝高數位化政績，\n\n提議將圖書館借書、領取育兒津貼等公共服務「全數轉為」僅限數位皮夾驗證。",
     choices: [
       {
-        text: "「效率至上」\n\n支持地方政府，認為數位化能節省行政人力。",
+        text: "「效率至上」\n\n支持地方政府，認為數位化能節省行政人力",
         effect: { efficiency: 1, rights: 0 }
       },
       {
@@ -103,17 +103,24 @@ const questions = [
     ]
   },
   {
-    text: "開發團隊表示技術已成熟，但尚無專法。",
+    text: "2026 年初，數位皮夾已進入超商取貨驗證階段，\n\n但台灣人權促進會（台權會）持續追討 2024 年至今的設計案與交付成果，輿論開始質疑政府隱瞞技術細節。",
     choices: [
-      { text: "「技術萬能論」", effect: { efficiency: 1, rights: 0 }},
-      { text: "「法制先行」", effect: { efficiency: 0, rights: 1 }}
+      { text: "技術優先」\n\n以開發尚未完全成熟、涉及資安敏感資訊為由，繼續延後公開交付成果，專注於優化 APP 功能。", effect: { efficiency: 1, rights: 0 }},
+      { text: "「民主監督」響應 FOC 國際原則，主動公開階段性成果與技術架構，並舉辦公聽會接受公民團體監督。", effect: { efficiency: 0, rights: 1 }}
     ]
   },
   {
-    text: "民間團體要求公開技術架構。",
+    text: "電信巨頭與跨國手機系統商（Apple/Google）積極尋求合作，想將數位皮夾嵌入系統底層。",
     choices: [
-      { text: "延後公開", effect: { efficiency: 1, rights: 0 }},
-      { text: "主動公開", effect: { efficiency: 0, rights: 1 }}
+      { text: "「市場導向」\n\n擁抱單一大型供應商，換取最便利的操作體驗，快速普及化。", effect: { efficiency: 1, rights: 0 }},
+      { text: "「風險分散」\n\n執行「個資衝擊與人權風險評估」，要求多樣化供應鏈，防止數位主權與數據被單一財團壟斷。", effect: { efficiency: 0, rights: 1 }}
+    ]
+  }
+    {
+    text: "開發團隊表示現有技術已能達成「初步去識別化」，建議直接上線。\n\n但目前國內尚無針對數位皮夾的專屬法律（如歐盟 eIDAS）。",
+    choices: [
+      { text: "「技術萬能論」\n\n 相信技術開發可以長成符合國際原則的樣子，法律等技術成熟後再補補丁，避免法律限制創新。", effect: { efficiency: 1, rights: 0 }},
+      { text: "「法制先行」\n\n 在全面推廣前，優先推動專法立法，明確界定個資最小化、嚴格限制發證單位取得使用者數位足跡。", effect: { efficiency: 0, rights: 1 }}
     ]
   }
 ];
